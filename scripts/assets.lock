@@ -1,0 +1,35 @@
+# Pinned third-party artifacts. Format: NAME URL SHA256
+#
+# --- Packaged into the APK ------------------------------------------------------------------
+# Debian 12 "bookworm" arm64 rootfs: the official Docker "debian:bookworm" image layer
+# (debuerreotype 0.17, serial 20261027, Debian 12.15). Built reproducibly from
+# snapshot.debian.org/archive/debian/20261027T000000Z. Git commit pin of
+# github.com/debuerreotype/docker-debian-artifacts branch dist-arm64v8; the SHA-256 equals the
+# OCI layer digest in that commit's bookworm/oci/blobs/image-manifest.json.
+debian-rootfs https://raw.githubusercontent.com/debuerreotype/docker-debian-artifacts/e36653f9967231373aeba7cff2102fd004ac4f4a/bookworm/oci/blobs/rootfs.tar.gz 9e2782a4701b518d11b63dd3dedcfe1338e448f72cbf5353e854f2501ffd5e62
+# Termux packages (Android/bionic aarch64 builds) - packages.termux.dev, checksums from the repo Packages index
+termux-proot          https://packages.termux.dev/apt/termux-main/pool/main/p/proot/proot_5.1.107.101_aarch64.deb a28355e9be257e1f87f4e9294b3118470d4fd7a5442fed8b278f4443c83407d7
+termux-libtalloc      https://packages.termux.dev/apt/termux-main/pool/main/libt/libtalloc/libtalloc_2.5.0_aarch64.deb 556591f43bb773ad8777e1a29522640866a55f95dab71914418b94a8c58ad5a7
+termux-libandroid-shmem https://packages.termux.dev/apt/termux-main/pool/main/liba/libandroid-shmem/libandroid-shmem_0.7_aarch64.deb 0da3a24d558b93c92bcf8d611e0826a99ff96e396b148e6cdf33b47c47c57ff6
+# Python packages vendored into the runtime overlay (pure-Python wheels, PyPI-published sha256).
+# gpiozero 2.0.1 = the version Pi OS bookworm ships; BSD-3-Clause, like colorzero.
+py-gpiozero  https://files.pythonhosted.org/packages/02/eb/6518a1b00488d48995034226846653c382d676cf5f04be62b3c3fae2c6a1/gpiozero-2.0.1-py3-none-any.whl 8f621de357171d574c0b7ea0e358cb66e560818a47b0eeedf41ce1cdbd20c70b
+py-colorzero https://files.pythonhosted.org/packages/7e/a6/ddd0f130e44a7593ac6c55aa93f6e256d2270fd88e9d1b64ab7f22ab8fde/colorzero-2.0-py2.py3-none-any.whl 0e60d743a6b8071498a56465f7719c96a5e92928f858bab1be2a0d606c9aa0f8
+# Prebuilt PiSandbox rootfs (output of scripts/build-rootfs.sh, byte-identical to the one inside the 0.5.2 APKs),
+# attached to the GitHub release so source builds need not rebuild it (build-rootfs.sh installs packages from the
+# live Debian mirror, so a fresh build differs). Used by fetch-assets.sh with PISANDBOX_ROOTFS=prebuilt|auto.
+pisandbox-rootfs https://github.com/pisandbox/pisandbox/releases/download/v0.5.2/pisandbox-0.5.2-rootfs-bookworm-arm64.tar.xz f2f8d6e5f71791e1f8de0fb346eeba15883da80fb3a468a5d9889ab75527b731
+#
+# --- Build-host tools (x86_64; used to customise the arm64 rootfs and to test it on the PC) ---
+# Same PRoot source as the Termux build above (termux-packages recipe SHA-256), compiled for the host.
+host-proot-src     https://github.com/termux/proot/archive/v5.1.107.101.zip a66743f50c7b0bac1913b83bf55e139d679c80a0ca2808eec76432a65640017f
+# Debian 13 amd64 debs (checksums from deb.debian.org trixie Packages index). NB: the pool only
+# keeps current versions; if a URL 404s, use https://snapshot.debian.org/package/<src>/<version>/.
+host-qemu-user     https://deb.debian.org/debian/pool/main/q/qemu/qemu-user_10.0.13+ds-0+deb13u1_amd64.deb ca6ede739327a20ae5a3498230c8a3a9a072c586e131bc6bcc1201eb1725e336
+host-libtalloc2    https://deb.debian.org/debian/pool/main/s/samba/libtalloc2_2.4.3+samba4.22.11+dfsg-0+deb13u1_amd64.deb b4cc8aa74c8b7c05a64efb6577acc955f522a8e39d8f37fe60b1b3fe6634ce96
+host-libtalloc-dev https://deb.debian.org/debian/pool/main/s/samba/libtalloc-dev_2.4.3+samba4.22.11+dfsg-0+deb13u1_amd64.deb c415d6e45ce02e30099198dedc39afba1057d7c00bebcdb2735c23399e4df8e7
+host-make          https://deb.debian.org/debian/pool/main/m/make-dfsg/make_4.4.1-2_amd64.deb 70a9709e665383b06068ccd423d62ea191b65355f318a25565dbf324b254cec6
+#
+# --- Host-only: QEMU system-emulation boot test (scripts/qemu-host-boot-test.sh; not in the APK) ---
+alpine-minirootfs https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/aarch64/alpine-minirootfs-3.24.3-aarch64.tar.gz 4d3f80afaebd447c5591a63a73bde380a149fe8b2d85488cafabb2ff97551f50
+alpine-netboot    https://dl-cdn.alpinelinux.org/alpine/v3.24/releases/aarch64/alpine-netboot-3.24.3-aarch64.tar.gz 0ac085f19648562d33deb8bfdc339d747e40f456a49a43385d468ea46a888147

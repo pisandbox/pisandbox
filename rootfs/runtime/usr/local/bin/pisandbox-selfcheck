@@ -1,0 +1,15 @@
+#!/bin/bash
+# Reports which PiSandbox overlays are active in this session (also logged by the app at startup).
+ok(){ printf '  [ok]   %s\n' "$1"; }; no(){ printf '  [FAIL] %s\n' "$1"; bad=1; }; bad=0
+echo "PiSandbox self-check"
+[ "$(hostname)" = pisandbox ] && ok "hostname = pisandbox" || no "hostname = $(hostname) (uname -k override not applied)"
+m=$(tr -d '\0' < /proc/device-tree/model 2>&1) && ok "/proc/device-tree/model = $m" || no "/proc/device-tree/model: $m"
+m=$(tr -d '\0' < /sys/firmware/devicetree/base/model 2>&1) && ok "/sys/firmware/devicetree/base/model = $m" || no "/sys/firmware/devicetree/base/model: $m"
+if grep -q '^Revision' /proc/cpuinfo 2>/dev/null; then ok "/proc/cpuinfo has $(grep ^Revision /proc/cpuinfo | tr -s '\t ' ' ')"
+elif [ -n "${PISANDBOX_HOST_QEMU:-}" ]; then ok "/proc/cpuinfo: answered by qemu-user (host test only); bound source has $(grep ^Revision /etc/pisandbox/generated/cpuinfo | tr -s '\t ' ' ')"
+else no "/proc/cpuinfo has no Revision line"; fi
+uname -r | grep -q rpt-rpi && ok "uname -r = $(uname -r)" || no "uname -r = $(uname -r)"
+for f in stat loadavg uptime vmstat; do head -c1 /proc/$f >/dev/null 2>&1 && ok "/proc/$f readable" || no "/proc/$f unreadable"; done
+python3 -c 'import pisandbox_gpio as p; p.connection("selfcheck")' 2>/dev/null && ok "GPIO panel reachable" || no "GPIO panel not reachable (control socket)"
+[ -r /etc/pisandbox/generated/overlays.txt ] && { echo "  app log:"; sed 's/^/    /' /etc/pisandbox/generated/overlays.txt; }
+exit $bad

@@ -1,0 +1,5 @@
+Metadata-Version: 2.1
+Name: pisandbox-gpio
+Version: 0.3.0
+Summary: PiSandbox virtual GPIO client, RPi.GPIO-compatible shim and gpiozero pin factory
+License: same as the PiSandbox app

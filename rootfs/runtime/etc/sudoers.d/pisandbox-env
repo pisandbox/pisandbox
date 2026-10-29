@@ -1,0 +1,2 @@
+# PiSandbox: keep the GPIO settings under sudo (sudo python3 blink.py works like on Pi OS)
+Defaults env_keep += "GPIOZERO_PIN_FACTORY PISANDBOX_CTL"

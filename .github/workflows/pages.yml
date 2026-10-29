@@ -1,0 +1,32 @@
+# Publishes the static site in site/ (index.html + privacy.html) to GitHub Pages.
+# One-time setup after the first push: repository Settings -> Pages -> Build and deployment -> Source:
+# "GitHub Actions" (or: gh api -X POST repos/<owner>/pisandbox/pages -f build_type=workflow).
+# Branch-based Pages can only serve the repo root or /docs, so site/ needs this workflow.
+# Result: https://<owner>.github.io/pisandbox/ and .../privacy.html (all links in site/ are relative).
+name: Pages
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v5

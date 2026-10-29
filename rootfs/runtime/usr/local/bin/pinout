@@ -1,0 +1,4 @@
+#!/usr/bin/python3
+import sys
+from gpiozerocli.pinout import main
+sys.exit(main())

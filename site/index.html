@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>PiSandbox — a Linux learning computer on your phone</title>
+<meta name="description" content="PiSandbox runs a real Debian Linux with Python and simulated GPIO on Android. Free and open source (GPL-3.0-or-later). No data collected.">
+<link rel="stylesheet" href="style.css">
+</head><body><main>
+<img src="img/splash.gif" alt="PiSandbox start-up animation: sand fills a chip outline" width="180">
+<h1>PiSandbox</h1>
+<p>A pocket Linux computer for learning to code. PiSandbox runs a real Debian 12 system with Python, <code>apt</code> and
+<code>sudo</code> on your Android phone — no root, no download on first start — and simulates a 40-pin GPIO header so
+classic LED and button lessons work on screen.</p>
+<div class="shots">
+<img src="img/terminal.png" alt="Terminal tab with a Linux prompt">
+<img src="img/traffic-colors.png" alt="GPIO tab: a traffic light on GPIO 17, 27 and 22 with red, amber and green LEDs lit">
+<img src="img/gpio.png" alt="GPIO tab showing the simulated pin header">
+<img src="img/lessons.png" alt="Lessons tab with beginner exercises">
+<img src="img/files.png" alt="Files tab listing the examples folder">
+<img src="img/browser.png" alt="Browser tab">
+</div>
+<div class="card">
+<h2>Download</h2>
+<p>Version 0.5.2 · Android 8.0+ · 64-bit ARM · about 600 MB free space.<br>
+Get <code>pisandbox-0.5.2-release.apk</code> from the <a href="https://github.com/pisandbox/pisandbox/releases/latest">latest release</a>
+and check its SHA-256. On the phone, allow your browser or file manager to <em>install unknown apps</em> when Android asks.
+<a href="https://github.com/pisandbox/pisandbox/blob/main/docs/INSTALL.md">Install guide</a>
+(uninstall earlier test builds first).</p>
+</div>
+<h2>Features</h2>
+<ul>
+<li>Debian 12 terminal with a key row for Ctrl, Tab, arrows and Esc.</li>
+<li>Simulated GPIO: <code>RPi.GPIO</code>, <code>gpiozero</code> and the <code>gpio</code> command drive an on-screen header with coloured LEDs (traffic lights show red, amber and green) and buttons.</li>
+<li>Step-by-step lessons, a file browser with Run, and a built-in browser for your own web servers.</li>
+<li>Keeps running in the background; power off from the notification.</li>
+<li>Soft button clicks and quiet typing sounds (switch them off or turn them down in Settings; silent when your phone is).</li>
+</ul>
+<h2>Privacy</h2>
+<p>PiSandbox collects no data: no accounts, analytics, ads, crash reporting or third-party SDKs.
+<a href="privacy.html">Privacy policy</a>.</p>
+<h2>Open source</h2>
+<p>GPL-3.0-or-later. <a href="https://github.com/pisandbox/pisandbox">Source code</a>, licences of bundled software
+(PRoot, Debian, Termux terminal and others) are listed in the app under Settings → About &amp; licenses.</p>
+<p><small>Raspberry Pi is a trademark of Raspberry Pi Ltd. PiSandbox is not affiliated with or endorsed by Raspberry Pi Ltd.
+Debian is a registered trademark of Software in the Public Interest, Inc.</small></p>
+</main></body></html>

@@ -1,0 +1,34 @@
+#!/bin/bash
+# neofetch-style system summary for PiSandbox (art: the PiSandbox chip-with-pi app icon; no third-party logos)
+. /etc/os-release 2>/dev/null
+up=$(awk '{s=int($1); printf "%dh %dm", s/3600, (s%3600)/60}' /proc/uptime 2>/dev/null)
+mem=$(awk '/MemTotal/{t=$2}/MemAvailable/{a=$2}END{if(t)printf "%dMiB / %dMiB",(t-a)/1024,t/1024}' /proc/meminfo 2>/dev/null)
+model=$(tr -d '\0' < /proc/device-tree/model 2>/dev/null)
+cpu=$(grep -c ^processor /proc/cpuinfo 2>/dev/null)
+pk=$(dpkg-query -f '.\n' -W 2>/dev/null | wc -l)
+G=$'\e[1;92m'; P=$'\e[0;37m'; C=$'\e[1;36m'; N=$'\e[0m'
+art=(
+"${P}     | | | | | |     "
+"${P}   .-------------.   "
+"${P} --|${G}  _________  ${P}|-- "
+"${P} --|${G}   |     |   ${P}|-- "
+"${P} --|${G}   |     |   ${P}|-- "
+"${P} --|${G}   |     |_  ${P}|-- "
+"${P}   '-------------'   "
+"${P}     | | | | | |     "
+"${G}      PiSandbox      "
+"                     "
+)
+info=(
+"${C}$(id -un)${N}@${C}$(hostname)${N}"
+"-----------------"
+"${C}OS${N}: ${PRETTY_NAME:-Linux} $(dpkg --print-architecture 2>/dev/null)"
+"${C}Host${N}: ${model:-unknown} (emulated by PiSandbox $(cat /etc/pisandbox/version 2>/dev/null))"
+"${C}Kernel${N}: $(uname -r)"
+"${C}Uptime${N}: ${up:-?}"
+"${C}Packages${N}: ${pk} (dpkg)"
+"${C}Shell${N}: ${SHELL##*/}  ${C}Terminal${N}: PiSandbox"
+"${C}CPU${N}: ${cpu:-?} cores (phone CPU, native arm64)"
+"${C}Memory${N}: ${mem:-?}"
+)
+for i in "${!art[@]}"; do printf '%s%s  %s\n' "${art[$i]}" "$N" "${info[$i]:-}"; done

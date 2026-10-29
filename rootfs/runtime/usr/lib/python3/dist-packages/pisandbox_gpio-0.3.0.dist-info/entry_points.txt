@@ -1,0 +1,2 @@
+[gpiozero_pin_factories]
+pisandbox = pisandbox_gpio.gpiozero_factory:PiSandboxFactory

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PiSandbox icon: square chip/sandbox outline with pins and the math symbol pi inside (not any third-party logo). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <!-- pins -->
+    <path android:fillColor="#4CD964"
+        android:pathData="M42,28h4v6h-4z M52,28h4v6h-4z M62,28h4v6h-4z M42,74h4v6h-4z M52,74h4v6h-4z M62,74h4v6h-4z M28,42h6v4h-6z M28,52h6v4h-6z M28,62h6v4h-6z M74,42h6v4h-6z M74,52h6v4h-6z M74,62h6v4h-6z" />
+    <!-- package -->
+    <path android:fillColor="#37474F" android:strokeColor="#4CD964" android:strokeWidth="2"
+        android:pathData="M38,34h32a4,4 0,0 1,4 4v32a4,4 0,0 1,-4 4h-32a4,4 0,0 1,-4 -4v-32a4,4 0,0 1,4 -4z" />
+    <!-- pi symbol -->
+    <path android:strokeColor="#E2337F" android:strokeWidth="4.5" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:fillColor="#00000000"
+        android:pathData="M42,46Q44,43 48,43H67 M49,43Q49,56 44,65 M60,43V60Q60,65 65,64" />
+</vector>

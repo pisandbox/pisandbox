@@ -1,0 +1,25 @@
+PiSandbox
+Copyright (C) 2026 The PiSandbox contributors
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version. It is distributed WITHOUT ANY WARRANTY; see the
+LICENSE file (GPL-3.0) for details.
+
+This product includes third-party software, each under its own licence. The full list, copyright
+notices and source locations are in THIRD_PARTY.md and legal/THIRD_PARTY_NOTICES.txt; licence texts
+are in legal/licenses/. Highlights:
+
+* PRoot (GPL-2.0-or-later), talloc (LGPL-3.0-or-later), libandroid-shmem (BSD-3-Clause) - shipped
+  as separate executables / libraries in the APK.
+* Debian GNU/Linux 12 packages (various free licences; per-package copyright files are inside the
+  Linux system at /usr/share/doc/*/copyright).
+* gpiozero and colorzero (BSD-3-Clause).
+* Termux terminal-emulator and terminal-view, Apache Commons Compress/IO/Lang/Codec, AndroidX
+  Annotation, Kotlin standard library (Apache-2.0).
+  Apache Commons Compress: "This product includes software developed at The Apache Software
+  Foundation (https://www.apache.org/)."
+* XZ for Java (0BSD).
+
+Raspberry Pi is a trademark of Raspberry Pi Ltd. PiSandbox is not affiliated with or endorsed by Raspberry Pi Ltd.
+Debian is a registered trademark of Software in the Public Interest, Inc.

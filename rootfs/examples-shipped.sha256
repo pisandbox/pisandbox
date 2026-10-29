@@ -1,0 +1,15 @@
+# sha256 of every version of each ~/examples file ever shipped (unedited copies get updated; see
+# rootfs/runtime/etc/profile.d/pisandbox.sh). scripts/build-runtime.sh adds the current files and git history,
+# so this list keeps working in a source tarball or a squashed public history. Append, never remove.
+261d7136eea34299b5e6af123fa16477b386d1866b880290140edc58a1bd7fd9  README.txt
+b54a2bd43ec6f1bc64c5b0a2f589b889f96f9ed70fc04523cb7e95a408edb7b1  README.txt
+f49d2a480e027495d737319b16bde577b563ce0f569bc1c647cb943b918df094  README.txt
+9247f3601da9c2dcff28f28eb609fbb21f2a9c46f3c514138e220b51348e193f  blink.py
+fa201265a9f9f6e471f52272615133145c8654c42c1836dcecb9b4b0ed8376b8  blink.py
+0ac28b7db9aac8074e9bda6689a823b33b2196ef56b48b2d2c250f008b96f70e  button.py
+4040c31680a2d649ddc8eb912f41994cc8a7146c48f616762055941cdfc0af58  button.py
+d637d5db7254412ad50c51b36c79ec4291ff3207207fe5b8c67d9b6298aadc68  reaction_game.py
+3e4596823361ce17210ba89c36ede9f3ab1249e26d63a6121981ec9d8b4adfc1  rpigpio_blink.py
+4c4760ff5b8ae4f64c08d8dd11450bd6e04ca18e9344aa610b718d51e2a0a4ec  traffic_lights.py
+bc4b77024be61ef3b144f55ffad2b2e8e45c7a8f44c335b782b784b6a9a63b80  traffic_lights.py
+fd04712a28b5c587399c708ffffe4be379f70b46477ea31953555d76ae9b77b0  traffic_lights.py

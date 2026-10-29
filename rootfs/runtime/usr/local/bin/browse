@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+"""browse <url|port|path> - open a page in the PiSandbox app's built-in web browser.
+  browse example.com            -> https://example.com
+  browse 8000   or   browse :8000/docs   -> http://localhost:8000/...  (servers you run in Linux)
+Falls back to a text browser (w3m/lynx) when not running inside the app."""
+import os, re, shutil, sys
+
+def normalise(u):
+    u = u.strip()
+    if re.fullmatch(r":?\d{2,5}(/.*)?", u):
+        return "http://localhost:" + u.lstrip(":")
+    if re.match(r"(localhost|127\.0\.0\.1)(:\d+)?(/|$)", u):
+        return "http://" + u
+    if not re.match(r"https?://", u):
+        return "https://" + u
+    return u
+
+if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"):
+    print(__doc__.strip()); sys.exit(0 if len(sys.argv) == 2 else 2)
+url = normalise(sys.argv[1])
+try:
+    from pisandbox_gpio import Connection
+    Connection("browse").call("browse", url)
+    print(f"Opened {url} in the PiSandbox browser (tap the screen's back arrow or WEB to return).")
+except Exception as e:
+    for tb in ("w3m", "lynx"):
+        if shutil.which(tb):
+            os.execvp(tb, [tb, url])
+    sys.exit(f"browse: {e}\n(no text browser either: sudo apt install w3m)")

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- So apt/pip/curl inside the Debian guest can reach the network. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Read the phone's current DNS servers to write the guest's /etc/resolv.conf. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Keep Linux running while the app is in the background (ongoing "Linux is running" notification). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:name=".PiSandboxApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.PiSandbox"
+        tools:ignore="DataExtractionRules">
+        <!-- Privacy: the Browser tab's WebView must not report anything to Google on its own.
+             MetricsOptOut stops WebView usage/crash metrics; Safe Browsing lookups are off because they send
+             (hashed) URLs to a third party. Pages only load when the user opens them. -->
+        <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
+        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|keyboard|smallestScreenSize|uiMode|navigation"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- Friendly crash screen, in its own process so it works even if the main process is broken. -->
+        <activity
+            android:name=".CrashActivity"
+            android:exported="false"
+            android:process=":crash"
+            android:excludeFromRecents="true"
+            android:label="PiSandbox" />
+        <service
+            android:name=".LinuxService"
+            android:exported="false" />
+    </application>
+</manifest>

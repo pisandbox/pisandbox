@@ -1,0 +1,47 @@
+# --- build outputs / caches ---
+.gradle/
+build/
+app/build/
+app/release/
+app/debug/
+.cache/
+.kotlin/
+local.properties
+*.iml
+.idea/
+.DS_Store
+
+# --- fetched or generated third-party artifacts (re-create with scripts/fetch-assets.sh) ---
+app/src/main/jniLibs/
+app/src/main/assets/rootfs/
+app/src/main/assets/qemu/
+app/src/main/assets/runtime/
+tools/hostjni/*.so
+
+# --- big binaries: shipped as GitHub release assets, never in git ---
+# (APKs, the 73 MB rootfs tarball, source tarballs, release kits). Their .sha256 files may be committed.
+*.apk
+*.aab
+*.apks
+*.idsig
+*.tar.xz
+*.tar.gz
+*.tgz
+*.zip
+*.img
+*.qcow2
+dist/release-*/
+
+# --- signing secrets and credentials must never be committed ---
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
+*.pass
+keys/
+keystore.properties
+signing.properties
+.env
+.env.*

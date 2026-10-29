@@ -1,0 +1,8 @@
+// PiSandbox runs under PRoot (no real root, no kernel namespaces).
+// apt normally drops privileges to the "_apt" user for downloads; under PRoot's
+// fake root that setuid dance is emulated and can fail on some kernels/SELinux
+// policies ("seteuid 42 failed"), so download as (fake) root instead.
+APT::Sandbox::User "root";
+Acquire::Retries "3";
+// No progress-bar pseudo-terminal (simpler, avoids PTY quirks under PRoot).
+Dpkg::Use-Pty "0";

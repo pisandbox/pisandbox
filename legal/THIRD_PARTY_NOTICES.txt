@@ -1,0 +1,73 @@
+PiSandbox - third-party software notices
+========================================
+
+PiSandbox itself is free software, licensed under the GNU General Public License,
+version 3 or (at your option) any later version (GPL-3.0-or-later). Full text:
+licenses/GPL-3.0.txt.
+
+The PiSandbox APK also contains the following third-party software. Each part keeps
+its own licence; the full texts are in licenses/ (in the app: Settings > About &
+licenses).
+
+Linux sandbox (shipped as separate programs, run by the app)
+-------------------------------------------------------------
+* PRoot 5.1.107 (Termux fork, Android build 5.1.107.101) - libproot.so, libproot-loader.so, libproot-loader32.so
+  Copyright (C) 2015 STMicroelectronics and the PRoot / Termux contributors.
+  Licence: GPL-2.0-or-later (licenses/GPL-2.0.txt).
+  Source: https://github.com/termux/proot (tag v5.1.107.101) and the termux-packages build recipe.
+* talloc 2.5.0 (Termux Android build) - libtalloc.so
+  Copyright (C) Andrew Tridgell, Stefan Metzmacher and the Samba team.
+  Licence: LGPL-3.0-or-later (licenses/LGPL-3.0.txt, which builds on licenses/GPL-3.0.txt).
+  Source: https://www.samba.org/ftp/talloc/talloc-2.5.0.tar.gz
+* libandroid-shmem 0.7 (Termux) - libandroid-shmem.so
+  Copyright (c) 2013 Sergii Pylypenko, (c) 2017 Fredrik Fornwall.
+  Licence: BSD-3-Clause (licenses/libandroid-shmem-BSD-3-Clause.txt).
+  Source: https://github.com/termux/libandroid-shmem
+
+Debian GNU/Linux 12 "bookworm" (arm64) root filesystem
+-------------------------------------------------------
+* The official Debian bookworm base image (debuerreotype, snapshot 20261027T000000Z),
+  plus the packages listed in rootfs/packages.txt (python3, sudo, nano and friends). The
+  exact package versions are recorded in rootfs/manifest-bookworm-arm64.txt in the source
+  repository, and inside Linux by `dpkg -l`. Each package carries its own licence (mostly GPL, LGPL,
+  BSD, MIT, Artistic); the copyright file of every package is inside Linux at
+  /usr/share/doc/<package>/copyright.
+  Corresponding source for those exact versions: https://snapshot.debian.org/ (e.g.
+  `apt-get source <package>=<version>`), and the written source offer below.
+* Debian is a registered trademark of Software in the Public Interest, Inc.
+
+Python libraries added to Linux
+-------------------------------
+* gpiozero 2.0.1 - BSD-3-Clause (licenses/gpiozero-BSD-3-Clause.txt). https://github.com/gpiozero/gpiozero
+* colorzero 2.0 - BSD-3-Clause (licenses/colorzero-BSD-3-Clause.txt). https://github.com/waveform80/colorzero
+
+Android app libraries
+---------------------
+* Termux terminal-emulator and terminal-view v0.118.3 - Apache-2.0 (licenses/Apache-2.0.txt).
+  Copyright (C) Fredrik Fornwall and the Termux developers; includes code derived from
+  Jack Palevich's Android Terminal Emulator (Apache-2.0). https://github.com/termux/termux-app
+* Apache Commons Compress 1.27.1, Commons IO 2.16.1, Commons Lang 3.16.0, Commons Codec 1.17.1 -
+  Apache-2.0. Copyright The Apache Software Foundation. This product includes software
+  developed at The Apache Software Foundation (https://www.apache.org/).
+* XZ for Java 1.10 - 0BSD (licenses/0BSD-xz-java.txt). https://tukaani.org/xz/java.html
+* AndroidX Annotation - Apache-2.0. Copyright The Android Open Source Project.
+* Kotlin standard library - Apache-2.0. Copyright JetBrains s.r.o. and Kotlin Programming
+  Language contributors.
+
+Written offer for source code
+-----------------------------
+For at least three years from the date you received this copy of PiSandbox, and for as
+long as we offer spare parts or support for it, anyone who has it can get the complete
+corresponding source code of the GPL- and LGPL-licensed parts above (PRoot, talloc, and
+the Debian packages in the root filesystem), as well as PiSandbox's own source code, on a
+medium customarily used for software interchange, for no more than the cost of
+physically performing the distribution. The same source is also available free of charge
+from the project page shown in the app (Settings > About & licenses) and from the upstream
+locations listed above. To request it, open an issue on the project page or use the
+contact address given there, quoting the PiSandbox version number.
+
+Trademarks
+----------
+Raspberry Pi is a trademark of Raspberry Pi Ltd. PiSandbox is not affiliated with or endorsed by Raspberry Pi Ltd.
+Inside the sandbox, Linux reports a "Raspberry Pi 4 Model B" board identity so that existing
+tutorials and libraries behave as they would on the real board; this describes compatibility only.

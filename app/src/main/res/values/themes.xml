@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.PiSandbox" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#121417</item>
+        <item name="android:statusBarColor">#121417</item>
+        <item name="android:navigationBarColor">#121417</item>
+        <item name="android:colorAccent">#E2337F</item>
+        <item name="android:colorControlActivated">#E2337F</item>
+    </style>
+</resources>

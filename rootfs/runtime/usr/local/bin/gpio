@@ -1,0 +1,99 @@
+#!/usr/bin/python3
+"""WiringPi-style `gpio` command for the PiSandbox virtual header (subset).
+  gpio [-g|-1] mode <pin> in|out|up|down|tri|pwm     gpio [-g|-1] write <pin> 0|1
+  gpio [-g|-1] read <pin>     gpio [-g|-1] pwm <pin> <0-1023>     gpio readall     gpio -v
+  gpio [-g|-1] color <pin> [red|amber|yellow|green|blue|white|orange|#rrggbb|default]
+      (PiSandbox extra: the colour of the on-screen LED; no colour prints the current one)
+Pin numbers are wiringPi numbers by default, BCM with -g, physical header pins with -1."""
+import sys
+from pisandbox_gpio import BOARD_TO_BCM, BCM_TO_BOARD, connection, state, CtlError
+
+WPI_TO_BCM = {0: 17, 1: 18, 2: 27, 3: 22, 4: 23, 5: 24, 6: 25, 7: 4, 8: 2, 9: 3, 10: 8, 11: 7, 12: 10,
+              13: 9, 14: 11, 15: 14, 16: 15, 21: 5, 22: 6, 23: 13, 24: 19, 25: 26, 26: 12, 27: 16,
+              28: 20, 29: 21, 30: 0, 31: 1}
+BCM_TO_WPI = {v: k for k, v in WPI_TO_BCM.items()}
+POWER = {1: "3.3v", 2: "5v", 4: "5v", 6: "0v", 9: "0v", 14: "0v", 17: "3.3v", 20: "0v", 25: "0v",
+         30: "0v", 34: "0v", 39: "0v"}
+
+
+def die(msg):
+    print("gpio: " + msg, file=sys.stderr)
+    sys.exit(1)
+
+
+def main(argv):
+    scheme = "wpi"
+    while argv and argv[0] in ("-g", "-1"):
+        scheme = "bcm" if argv.pop(0) == "-g" else "phys"
+    if not argv or argv[0] in ("-h", "--help"):
+        print(__doc__.strip())
+        return
+    cmd = argv[0]
+    if cmd == "-v":
+        print("gpio version: 3.10 (PiSandbox virtual header)\n  * Board: Pi 4 Model B, 4GB (emulated)")
+        return
+    c = connection("gpio")
+    if cmd == "readall":
+        return readall(state())
+
+    def pin(s):
+        n = int(s)
+        m = {"bcm": {i: i for i in range(28)}, "phys": BOARD_TO_BCM, "wpi": WPI_TO_BCM}[scheme]
+        if n not in m:
+            die(f"invalid pin {n} for this numbering scheme")
+        return m[n]
+
+    try:
+        if cmd == "mode" and len(argv) == 3:
+            b, m = pin(argv[1]), argv[2]
+            if m == "out":
+                c.call("setup", b, "out", 0)
+            elif m in ("in", "input", "tri"):
+                c.call("setup", b, "in", "off")
+            elif m in ("up", "down"):
+                c.call("setup", b, "in", m)
+            elif m == "pwm":
+                c.call("setup", b, "out", 0); c.call("pwm", b, 1000, 0)
+            else:
+                die("mode must be in/out/up/down/tri/pwm")
+        elif cmd == "write" and len(argv) == 3:
+            c.call("write", pin(argv[1]), 1 if argv[2] in ("1", "on", "high") else 0)
+        elif cmd == "read" and len(argv) == 2:
+            print(c.call("read", pin(argv[1])))
+        elif cmd in ("color", "colour") and len(argv) in (2, 3):
+            if len(argv) == 2:
+                print(c.call("color", pin(argv[1])))
+            else:
+                c.call("color", pin(argv[1]), argv[2].lower())
+        elif cmd == "pwm" and len(argv) == 3:
+            c.call("pwm", pin(argv[1]), 1000, min(1023, max(0, int(argv[2]))) * 100 / 1023)
+        else:
+            die(f"unknown or incomplete command: {' '.join(argv)} (try gpio -h)")
+    except CtlError as e:
+        die(str(e))
+
+
+def readall(st):
+    def cell(p):
+        if p in POWER:
+            return ("", "", POWER[p], "", "")
+        b = BOARD_TO_BCM[p]; s = st[b]
+        mode = {"unused": "IN", "in": "IN", "out": "OUT", "pwm": "PWM"}[s["mode"]]
+        v = s["level"] if s["mode"] == "out" else (1 if s["duty"] >= 50 else 0) if s["mode"] == "pwm" else \
+            ((0 if s["pull"] == "up" else 1) if s["pressed"] else (1 if s["pull"] == "up" else 0))
+        return (str(b), str(BCM_TO_WPI.get(b, "")), f"GPIO.{b}", mode, str(v))
+    line = " +-----+-----+---------+------+---+---Pi 4B--+---+------+---------+-----+-----+"
+    print(line)
+    print(" | BCM | wPi |   Name  | Mode | V | Physical | V | Mode | Name    | wPi | BCM |")
+    print(line.replace("Pi 4B", "-----"))
+    for p in range(1, 41, 2):
+        l, r = cell(p), cell(p + 1)
+        print(f" | {l[0]:>3} | {l[1]:>3} | {l[2]:>7} | {l[3]:>4} | {l[4]:>1} | {p:>2} || {p+1:<2} | {r[4]:<1} | {r[3]:<4} | {r[2]:<7} | {r[1]:<3} | {r[0]:<3} |")
+    print(line.replace("Pi 4B", "-----"))
+
+
+if __name__ == "__main__":
+    try:
+        main(sys.argv[1:])
+    except CtlError as e:
+        die(str(e))

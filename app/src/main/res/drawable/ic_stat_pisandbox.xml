@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Status-bar icon: white chip outline with pins (monochrome, as Android requires). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="#FFFFFFFF"
+        android:pathData="M7,5h10a2,2 0,0 1,2 2v10a2,2 0,0 1,-2 2H7a2,2 0,0 1,-2 -2V7a2,2 0,0 1,2 -2zM7,7v10h10V7z
+        M8.5,2h1.5v3h-1.5zM11.25,2h1.5v3h-1.5zM14,2h1.5v3h-1.5zM8.5,19h1.5v3h-1.5zM11.25,19h1.5v3h-1.5zM14,19h1.5v3h-1.5z
+        M2,8.5h3v1.5h-3zM2,11.25h3v1.5h-3zM2,14h3v1.5h-3zM19,8.5h3v1.5h-3zM19,11.25h3v1.5h-3zM19,14h3v1.5h-3z
+        M9,9.5h4.5v1.2h-1.1v4.8h-1.2v-4.8h-1v4.8h-1.2z"/>
+</vector>

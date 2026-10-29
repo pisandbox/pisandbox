@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>PiSandbox privacy policy</title>
+<link rel="stylesheet" href="style.css">
+</head><body><main>
+<p><a href="index.html">&larr; PiSandbox</a></p>
+<h1>PiSandbox privacy policy</h1>
+<p><em>Effective 29 October 2026 (applies to version 0.5.0 and later).</em></p>
+<p><strong>PiSandbox collects no data.</strong> We (the PiSandbox developers) receive nothing from the app: no personal
+information, no usage statistics, no device identifiers, no crash reports, no location.</p>
+<ul>
+<li><strong>No accounts, no analytics, no ads, no crash reporting, no third-party SDKs.</strong></li>
+<li><strong>The app itself never connects to the internet.</strong> It has no servers to talk to and no update checks.
+Network traffic happens only when <em>you</em> cause it:
+<ul>
+<li>pages you open in the Browser tab (typed addresses, bookmarks, and searches, which go to DuckDuckGo);</li>
+<li>programs you run inside Linux, such as <code>apt</code>, <code>pip</code>, <code>git</code> or <code>curl</code>. They connect to the
+servers you or they choose (for example deb.debian.org), exactly as on a computer;</li>
+<li>Linux uses your phone's DNS servers; if Android does not report any, it falls back to 1.1.1.1 and 8.8.8.8.
+This is only used by programs you run.</li>
+</ul></li>
+<li><strong>Browser:</strong> Android System WebView's usage-metrics upload is turned off for this app, and Safe Browsing is
+turned off (it would send URL hash prefixes to Google). Websites you visit can see your IP address and set
+cookies, as in any browser; cookies stay on the phone.</li>
+<li><strong>Crashes:</strong> if the app crashes it shows the details on your screen. They are stored only on your phone. You
+decide whether to copy them and send them to anyone.</li>
+<li><strong>Your files:</strong> everything in Linux (your home folder, installed packages) is stored in the app's private
+storage on your phone. It is deleted when you uninstall the app. Android's backup is not used for it.</li>
+<li><strong>Permissions:</strong> Internet and network state (for the browser and your Linux programs), and "foreground
+service" (to keep Linux running with a notification). No contacts, camera, microphone, location or storage
+permissions.</li>
+<li><strong>Children:</strong> PiSandbox is suitable for learners; since it collects nothing, there is nothing to share.</li>
+</ul>
+<p>Questions: open an issue at <a href="https://github.com/pisandbox/pisandbox/issues">github.com/pisandbox/pisandbox/issues</a> (the project page is also listed in the app under Settings → About &amp; licenses).
+Changes to this policy will be listed in the changelog and dated here.</p>
+</main></body></html>
